@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WeeCare App — User Study Mockups</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Source+Serif+4:wght@400;600&display=swap');
+
+  :root {
+    --sky: #E8F4FD;
+    --sky-deep: #D0E8F7;
+    --meadow: #E6F5EC;
+    --meadow-deep: #C8E6D5;
+    --sun: #FFF3E0;
+    --sun-deep: #FFE0B2;
+    --rose: #FCE4EC;
+    --rose-deep: #F8BBD0;
+    --bark: #2C1810;
+    --bark-soft: #4A3228;
+    --stone: #5D4E47;
+    --pebble: #8B7D76;
+    --cream: #FEFCF9;
+    --linen: #F7F3EE;
+    --cloud: #FFFFFF;
+    --sage: #4A7C5E;
+    --sage-light: #6B9E7E;
+    --ocean: #2E6B8A;
+    --ocean-light: #4A8DB0;
+    --coral: #C75B3A;
+    --coral-light: #E07A5A;
+    --plum: #7B5EA7;
+    --danger: #C62828;
+    --success: #2E7D32;
+    --phone-w: 375px;
+    --phone-h: 812px;
+    --radius: 16px;
+    --radius-sm: 12px;
+    --shadow-card: 0 2px 8px rgba(44,24,16,0.06);
+    --shadow-btn: 0 3px 12px rgba(44,24,16,0.1);
+    --shadow-phone: 0 20px 60px rgba(44,24,16,0.15), 0 8px 20px rgba(44,24,16,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #F0EBE5;
+    color: var(--bark);
+    min-height: 100vh;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    text-align: center;
+    padding: 48px 24px 16px;
+  }
+  .page-header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.5px;
+  }
+  .page-header p {
+    font-size: 16px;
+    color: var(--pebble);
+    margin-top: 8px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 16px 24px 24px;
+    flex-wrap: wrap;
+  }
+  .nav-tab {
+    padding: 10px 18px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background: var(--cloud);
+    color: var(--stone);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-tab:hover, .nav-tab.active {
+    background: var(--ocean);
+    color: white;
+    border-color: var(--ocean);
+  }
+
+  /* GRID */
+  .screens-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    padding: 0 32px 64px;
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+
+  /* PHONE FRAME */
+  .phone-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .phone-wrapper.dimmed {
+    opacity: 0.3;
+    transform: scale(0.97);
+  }
+  .phone-wrapper.highlighted {
+    transform: scale(1.02);
+  }
+
+  .phone-frame {
+    width: calc(var(--phone-w) + 24px);
+    height: calc(var(--phone-h) + 24px);
+    background: #1A1A1A;
+    border-radius: 52px;
+    padding: 12px;
+    box-shadow: var(--shadow-phone);
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-frame::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 32px;
+    background: #1A1A1A;
+    border-radius: 0 0 20px 20px;
+    z-index: 10;
+  }
+
+  .phone-screen {
+    width: var(--phone-w);
+    height: var(--phone-h);
+    background: var(--cream);
+    border-radius: 42px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    scrollbar-width: none;
+  }
+  .phone-screen::-webkit-scrollbar { display: none; }
+
+  /* STATUS BAR */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--bark);
+    background: transparent;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+  .status-bar .time { font-size: 16px; }
+  .status-icons { display: flex; gap: 6px; align-items: center; }
+  .status-icons svg { width: 18px; height: 18px; }
+
+  /* SCREEN LABEL */
+  .screen-label {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--stone);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .screen-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--ocean);
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* SHARED APP STYLES */
+  .screen-content { padding: 0 24px 32px; }
+
+  .app-header {
+    padding: 48px 24px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .back-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--linen);
+    border: 2px solid #E0D8D0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .back-btn:hover { background: #E8E0D8; }
+  .back-btn svg { width: 24px; height: 24px; color: var(--bark); }
+
+  .app-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--bark);
+    line-height: 1.2;
+  }
+
+  .big-card {
+    background: var(--cloud);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    border: 1.5px solid #EDE7E0;
+  }
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 20px 24px;
+    border-radius: var(--radius);
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.12s, box-shadow 0.12s;
+    box-shadow: var(--shadow-btn);
+  }
+  .action-btn:active { transform: scale(0.97); }
+  .action-btn svg { width: 28px; height: 28px; flex-shrink: 0; }
+
+  .btn-primary {
+    background: var(--ocean);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--ocean-light); }
+
+  .btn-sage {
+    background: var(--sage);
+    color: white;
+  }
+
+  .btn-coral {
+    background: var(--coral);
+    color: white;
+  }
+
+  .btn-warm {
+    background: var(--sun-deep);
+    color: var(--bark);
+  }
+
+  .btn-outline {
+    background: var(--cloud);
+    color: var(--bark);
+    border: 2.5px solid #D5CEC6;
+  }
+
+  /* CHOICE BUTTONS (EMA) */
+  .choice-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .choice-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border-radius: var(--radius);
+    background: var(--cloud);
+    border: 2.5px solid #DDD6CE;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--bark);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Nunito', sans-serif;
+    text-align: left;
+  }
+  .choice-btn:hover, .choice-btn.selected {
+    border-color: var(--ocean);
+    background: var(--sky);
+  }
+  .choice-btn .icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  /* ICON GRID (for drink types) */
+  .icon-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .icon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 12px;
+    border-radius: var(--radius);
+    background: var(--cloud);
+    border: 2.5px solid #DDD6CE;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Nunito', sans-serif;
+  }
+  .icon-card:hover, .icon-card.selected {
+    border-color: var(--ocean);
+    background: var(--sky);
+  }
+  .icon-card .emoji { font-size: 40px; }
+  .icon-card .label {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--bark);
+  }
+
+  /* SIZE SELECTOR */
+  .size-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .size-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 8px;
+    border-radius: var(--radius);
+    background: var(--cloud);
+    border: 2.5px solid #DDD6CE;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Nunito', sans-serif;
+  }
+  .size-card:hover, .size-card.selected {
+    border-color: var(--ocean);
+    background: var(--sky);
+  }
+  .size-card .cup { display: flex; align-items: flex-end; justify-content: center; height: 56px; }
+  .cup-icon {
+    background: var(--sky-deep);
+    border-radius: 4px 4px 8px 8px;
+    border: 2.5px solid var(--ocean-light);
+  }
+  .cup-sm { width: 28px; height: 30px; }
+  .cup-md { width: 34px; height: 40px; }
+  .cup-lg { width: 40px; height: 52px; }
+  .size-card .label {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--bark);
+  }
+  .size-card .amount {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--pebble);
+  }
+
+  /* PROGRESS DOTS */
+  .progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 8px 0;
+  }
+  .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #DDD6CE;
+    transition: all 0.2s;
+  }
+  .dot.active { background: var(--ocean); width: 32px; border-radius: 7px; }
+  .dot.done { background: var(--sage); }
+
+  /* DIARY TIMELINE */
+  .diary-entry {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1.5px solid #EDE7E0;
+  }
+  .diary-entry:last-child { border-bottom: none; }
+  .diary-time {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--pebble);
+    min-width: 72px;
+    padding-top: 4px;
+  }
+  .diary-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .diary-icon.intake { background: var(--sky); }
+  .diary-icon.void { background: var(--meadow); }
+  .diary-icon.leak { background: var(--rose); }
+  .diary-detail {
+    flex: 1;
+    padding-top: 2px;
+  }
+  .diary-detail .what {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--bark);
+  }
+  .diary-detail .info {
+    font-size: 15px;
+    color: var(--pebble);
+    margin-top: 2px;
+  }
+
+  /* TOGGLE SWITCH */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    border-bottom: 1.5px solid #EDE7E0;
+  }
+  .toggle-row:last-child { border-bottom: none; }
+  .toggle-label {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--bark);
+  }
+  .toggle-sublabel {
+    font-size: 14px;
+    color: var(--pebble);
+    margin-top: 2px;
+  }
+  .toggle-switch {
+    width: 64px;
+    height: 36px;
+    border-radius: 18px;
+    background: #CCC5BD;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .toggle-switch.on { background: var(--sage); }
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+  }
+  .toggle-switch.on::after { transform: translateX(28px); }
+
+  /* TEXT SIZE SELECTOR */
+  .text-size-row {
+    display: flex;
+    gap: 8px;
+  }
+  .text-size-btn {
+    flex: 1;
+    padding: 14px 8px;
+    border-radius: var(--radius-sm);
+    background: var(--cloud);
+    border: 2.5px solid #DDD6CE;
+    text-align: center;
+    font-weight: 800;
+    color: var(--bark);
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.15s;
+  }
+  .text-size-btn:hover, .text-size-btn.selected {
+    border-color: var(--ocean);
+    background: var(--sky);
+  }
+  .text-size-btn.sz-a { font-size: 16px; }
+  .text-size-btn.sz-a-plus { font-size: 20px; }
+  .text-size-btn.sz-a-plusplus { font-size: 24px; }
+
+  /* NOTIFICATION BAR */
+  .notif-bar {
+    margin: 0 24px 16px;
+    padding: 16px 20px;
+    border-radius: var(--radius);
+    background: var(--bark);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    animation: slideDown 0.4s ease-out;
+  }
+  .notif-bar .notif-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--ocean);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .notif-bar .notif-text {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .notif-bar .notif-app {
+    font-size: 12px;
+    font-weight: 700;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  @keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* CHECK ANIMATION */
+  .check-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--meadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .check-circle svg { width: 60px; height: 60px; color: var(--sage); }
+
+  @keyframes popIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+  }
+
+  /* STREAK BADGE */
+  .streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 24px;
+    background: var(--sun);
+    border: 2px solid var(--sun-deep);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--bark);
+  }
+
+  /* SENSOR VISUAL */
+  .sensor-visual {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .sensor-visual.connected {
+    background: var(--meadow);
+    border: 3px solid var(--sage-light);
+  }
+  .sensor-visual.disconnected {
+    background: var(--sun);
+    border: 3px solid var(--sun-deep);
+  }
+  .sensor-visual .pulse {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 3px solid var(--sage-light);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.08); }
+  }
+
+  /* STAT CARDS */
+  .stat-row {
+    display: flex;
+    gap: 12px;
+  }
+  .stat-card {
+    flex: 1;
+    padding: 16px 12px;
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+  .stat-card .stat-icon { font-size: 28px; margin-bottom: 6px; }
+  .stat-card .stat-val {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--bark);
+  }
+  .stat-card .stat-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--pebble);
+    margin-top: 2px;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--pebble);
+    margin-bottom: 12px;
+    margin-top: 24px;
+  }
+
+  /* DAY TOGGLE */
+  .day-toggle {
+    display: flex;
+    background: var(--linen);
+    border-radius: var(--radius-sm);
+    padding: 4px;
+    margin-bottom: 16px;
+  }
+  .day-toggle-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--pebble);
+    cursor: pointer;
+    transition: all 0.15s;
+    border: none;
+    background: transparent;
+    font-family: 'Nunito', sans-serif;
+  }
+  .day-toggle-btn.active {
+    background: var(--cloud);
+    color: var(--bark);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* EMERGENCY BTN */
+  .emergency-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 22px 24px;
+    border-radius: var(--radius);
+    background: var(--danger);
+    color: white;
+    font-size: 22px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    box-shadow: 0 4px 16px rgba(198,40,40,0.3);
+  }
+
+  /* CONTACT CARD */
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px;
+    border-radius: var(--radius);
+    background: var(--cloud);
+    border: 1.5px solid #EDE7E0;
+  }
+  .contact-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--sky);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .contact-name {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--bark);
+  }
+  .contact-role {
+    font-size: 14px;
+    color: var(--pebble);
+  }
+
+  /* HOME NAV BAR */
+  .bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 16px 28px;
+    background: var(--cloud);
+    border-top: 1.5px solid #EDE7E0;
+    position: sticky;
+    bottom: 0;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 12px;
+    transition: background 0.15s;
+  }
+  .nav-item:hover { background: var(--linen); }
+  .nav-item.active { color: var(--ocean); }
+  .nav-item svg { width: 28px; height: 28px; }
+  .nav-item .nav-label {
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* QUESTION TEXT */
+  .question-text {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--bark);
+    line-height: 1.3;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  /* HELPER TEXT */
+  .helper-text {
+    font-size: 16px;
+    color: var(--pebble);
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  /* SENSOR STATUS INLINE */
+  .sensor-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--sage);
+    padding: 8px 16px;
+    background: var(--meadow);
+    border-radius: 24px;
+    width: fit-content;
+  }
+  .sensor-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--success);
+    animation: blink 2s infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* PROFILE AVATAR */
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--sky);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin: 0 auto 12px;
+    border: 3px solid var(--sky-deep);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 480px) {
+    .phone-frame {
+      transform: scale(0.72);
+      transform-origin: top center;
+    }
+    .screens-grid { gap: 0; }
+    .page-header h1 { font-size: 24px; }
+  }
+
+  /* INTERACTIVE HIGHLIGHT */
+  .phone-wrapper[data-screen] {
+    scroll-margin-top: 32px;
+  }
+
+  /* PRINT STYLES */
+  @media print {
+    body { background: white; }
+    .nav-tabs { display: none; }
+    .phone-frame { box-shadow: 0 0 0 2px #ccc; break-inside: avoid; }
+    .phone-wrapper { break-inside: avoid; }
+  }
+
+  /* Connection lines for flow indication */
+  .flow-arrow {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>WeeCare App — User Study Mockups</h1>
+  <p>Interactive smartphone UI mockups for usability testing with older adults. Click buttons within screens to navigate between related views.</p>
+</div>
+
+<div class="nav-tabs" id="navTabs">
+  <div class="nav-tab active" onclick="showAll()">All Screens</div>
+  <div class="nav-tab" onclick="filterScreens('home')">Home</div>
+  <div class="nav-tab" onclick="filterScreens('intake')">Fluid Intake</div>
+  <div class="nav-tab" onclick="filterScreens('ema')">EMA Survey</div>
+  <div class="nav-tab" onclick="filterScreens('diary')">Diary</div>
+  <div class="nav-tab" onclick="filterScreens('sensor')">Sensor</div>
+  <div class="nav-tab" onclick="filterScreens('settings')">Settings</div>
+</div>
+
+<div class="screens-grid" id="screensGrid">
+
+  <!-- ==================== SCREEN 1: HOME DASHBOARD ==================== -->
+  <div class="phone-wrapper" data-screen="1" data-tags="home">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span class="time">9:41</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 18L6 15"/><path d="M10 18L10 11"/><path d="M14 18L14 7"/><path d="M18 18L18 3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="6" width="14" height="12" rx="2"/><path d="M21 10v4"/></svg>
+          </div>
+        </div>
+
+        <div style="padding: 8px 24px 0;">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div>
+              <div style="font-size:16px; font-weight:600; color:var(--pebble);">Monday, March 23</div>
+              <div style="font-size:28px; font-weight:800; color:var(--bark); margin-top:2px;">Good morning,<br>Margaret</div>
+            </div>
+            <div class="profile-avatar" style="width:56px;height:56px;font-size:24px;margin:0;cursor:pointer;" onclick="scrollToScreen(10)">
+              👤
+            </div>
+          </div>
+
+          <div style="margin-top:12px;">
+            <div class="sensor-inline">
+              <span class="sensor-dot"></span>
+              Sensor Connected
+            </div>
+          </div>
+        </div>
+
+        <div class="screen-content" style="padding-top:20px;">
+          <!-- Today's Summary -->
+          <div class="big-card" style="margin-bottom:16px;">
+            <div style="font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--pebble);margin-bottom:12px;">Today So Far</div>
+            <div class="stat-row">
+              <div class="stat-card" style="background:var(--sky);">
+                <div class="stat-icon">💧</div>
+                <div class="stat-val">4</div>
+                <div class="stat-label">Drinks</div>
+              </div>
+              <div class="stat-card" style="background:var(--meadow);">
+                <div class="stat-icon">🚽</div>
+                <div class="stat-val">3</div>
+                <div class="stat-label">Bathroom</div>
+              </div>
+              <div class="stat-card" style="background:var(--rose);">
+                <div class="stat-icon">💦</div>
+                <div class="stat-val">1</div>
+                <div class="stat-label">Leaks</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Streak -->
+          <div style="text-align:center; margin-bottom:20px;">
+            <div class="streak-badge">
+              ⭐ 3 days in a row — keep it up!
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <button class="action-btn btn-primary" onclick="scrollToScreen(2)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              Log a Drink
+            </button>
+            <button class="action-btn btn-coral" onclick="scrollToScreen(4)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 12h6M12 9v6"/><circle cx="12" cy="12" r="10"/></svg>
+              How Are You Feeling?
+            </button>
+            <button class="action-btn btn-outline" onclick="scrollToScreen(8)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+              My Diary
+            </button>
+          </div>
+        </div>
+
+        <div class="bottom-nav">
+          <div class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>
+            <span class="nav-label">Home</span>
+          </div>
+          <div class="nav-item" onclick="scrollToScreen(8)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <span class="nav-label">Diary</span>
+          </div>
+          <div class="nav-item" onclick="scrollToScreen(9)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            <span class="nav-label">Sensor</span>
+          </div>
+          <div class="nav-item" onclick="scrollToScreen(10)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span class="nav-label">Settings</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label"><span class="screen-number">1</span> Home Dashboard</div>
+  </div>
+
+  <!-- ==================== SCREEN 2: LOG A DRINK ==================== -->
+  <div class="phone-wrapper" data-screen="2" data-tags="intake">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span class="time">9:42</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 18L6 15"/><path d="M10 18L10 11"/><path d="M14 18L14 7"/><path d="M18 18L18 3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="6" width="14" height="12" rx="2"/><path d="M21 10v4"/></svg>
+          </div>
+        </div>
+
+        <div class="app-header">
+          <div class="back-btn" onclick="scrollToScreen(1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </div>
+          <div class="app-title">Log a Drink</div>
+        </div>
+
+        <div class="screen-content">
+          <div class="section-label" style="margin-top:16px;">What did you drink?</div>
+          <div class="icon-grid">
+            <div class="icon-card selected">
+              <span class="emoji">🥤</span>
+              <span class="label">Water</span>
+            </div>
+            <div class="icon-card">
+              <span class="emoji">☕</span>
+              <span class="label">Coffee</span>
+            </div>
+            <div class="icon-card">
+              <span class="emoji">🍵</span>
+              <span class="label">Tea</span>
+            </div>
+            <div class="icon-card">
+              <span class="emoji">🧃</span>
+              <span class="label">Juice</span>
+            </div>
+            <div class="icon-card" style="grid-column: span 2;">
+              <span class="emoji">🥛</span>
+              <span class="label">Other</span>
+            </div>
+          </div>
+
+          <div class="section-label">How much?</div>
+          <div class="size-row">
+            <div class="size-card">
+              <div class="cup"><div class="cup-icon cup-sm"></div></div>
+              <span class="label">Small</span>
+              <span class="amount">~120 mL</span>
+            </div>
+            <div class="size-card selected">
+              <div class="cup"><div class="cup-icon cup-md"></div></div>
+              <span class="label">Medium</span>
+              <span class="amount">~240 mL</span>
+            </div>
+            <div class="size-card">
+              <div class="cup"><div class="cup-icon cup-lg"></div></div>
+              <span class="label">Large</span>
+              <span class="amount">~350 mL</span>
+            </div>
+          </div>
+
+          <div style="margin-top:28px;">
+            <button class="action-btn btn-sage" onclick="scrollToScreen(1)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label"><span class="screen-number">2</span> Log a Drink</div>
+  </div>
+
+  <!-- ==================== SCREEN 3: EMA NOTIFICATION ==================== -->
+  <div class="phone-wrapper" data-screen="3" data-tags="ema">
+    <div class="phone-frame">
+      <div class="phone-screen" style="background:var(--linen);">
+        <div class="status-bar">
+          <span class="time">2:15</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 18L6 15"/><path d="M10 18L10 11"/><path d="M14 18L14 7"/><path d="M18 18L18 3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="6" width="14" height="12" rx="2"/><path d="M21 10v4"/></svg>
+          </div>
+        </div>
+
+        <div style="padding-top:40px;">
+          <div class="notif-bar" onclick="scrollToScreen(4)">
+            <div class="notif-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <div>
+              <div class="notif-app">WeeCare</div>
+              <div class="notif-text">A leak was detected. Tap to answer a quick question.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulated lock screen content -->
+        <div style="text-align:center; padding: 60px 24px 0;">
+          <div style="font-size:72px; font-weight:800; color:var(--bark); letter-spacing:-2px;">2:15</div>
+          <div style="font-size:20px; color:var(--pebble); font-weight:600;">Monday, March 23</div>
+        </div>
+
+        <div style="text-align:center; padding: 80px 40px 0;">
+          <div style="font-size:16px; color:var(--pebble); line-height:1.6;">
+            Tap the notification above to open WeeCare and answer a quick survey.
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="screen-label"><span class="screen-number">3</span> Leak Notification</div>
+  </div>
+
+  <!-- ==================== SCREEN 4: EMA Q1 ==================== -->
+  <div class="phone-wrapper" data-screen="4" data-tags="ema">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span class="time">2:15</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 18L6 15"/><path d="M10 18L10 11"/><path d="M14 18L14 7"/><path d="M18 18L18 3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="6" width="14" height="12" rx="2"/><path d="M21 10v4"/></svg>
+          </div>
+        </div>
+
+        <div class="app-header">
+          <div class="back-btn" onclick="scrollToScreen(1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 18L18 6M6 6l12 12"/></svg>
+          </div>
+          <div class="app-title">Quick Check-In</div>
+        </div>
+
+        <div class="screen-content" style="padding-top:16px;">
+          <div class="progress-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+
+          <div style="padding-top:40px;">
+            <div class="question-text">Did you just<br>have a leak?</div>
+            <div class="helper-text">The sensor noticed some moisture. We just want to check in.</div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:16px; margin-top:32px;">
+            <button class="action-btn btn-primary" style="padding:28px 24px; font-size:24px;" onclick="scrollToScreen(5)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>
+              Yes
+            </button>
+            <button class="action-btn btn-outline" style="padding:28px 24px; font-size:24px;" onclick="scrollToScreen(7)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 18L18 6M6 6l12 12"/></svg>
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label"><span class="screen-number">4</span> EMA — Question 1</div>
+  </div>
+
+  <!-- ==================== SCREEN 5: EMA Q2 ==================== -->
+  <div class="phone-wrapper" data-screen="5" data-tags="ema">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span class="time">2:16</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 18L6 15"/><path d="M10 18L10 11"/><path d="M14 18L14 7"/><path d="M18 18L18 3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="6" width="14" height="12" rx="2"/><path d="M21 10v4"/></svg>
+          </div>
+        </div>
+
+        <div class="app-header">
+          <div class="back-btn" onclick="scrollToScreen(4)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </div>
+          <div class="app-title">Quick Check-In</div>
+        </div>
+
+        <div class="screen-content" style="padding-top:16px;">
+          <div class="progress-dots">
+            <div class="dot done"></div>
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+
+          <div style="padding-top:24px;">
+            <div class="question-text">What were you doing?</div>
+          </div>
+
+          <div class="choice-grid">
+            <div class="choice-btn" onclick="scrollToScreen(6)">
+              <div class="icon" style="background:var(--sky);">🚶</div>
+              Walking
+            </div>
+            <div class="choice-btn" onclick="scrollToScreen(6)">
+              <div class="icon" style="background:var(--sun);">🤧</div>
+              Coughing or Sneezing
+            </div>
+            <div class="choice-btn" onclick="scrollToScreen(6)">
+              <div class="icon" style="background:var(--meadow);">🪑</div>
+              Sitting
+            </div>
+            <div class="choice-btn" onclick="scrollToScreen(6)">
+              <div class="icon" style="background:var(--rose);">😴</div>
+              Sleeping
+            </div>
+            <div class="choice-btn" onclick="scrollToScreen(6)">
+              <div class="icon" style="background:var(--sun);">🏋️</div>
+              Lifting Something
+            </div>
+            <div class="choice-btn" onclick="scrollToScreen(6)">
+              <div class="icon" style="background:var(--linen);">❓</div>
+              Something Else
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label"><span class="screen-number">5</span> EMA — Question 2</div>
+  </div>
+
+  <!-- ==================== SCREEN 6: EMA Q3 ==================== -->
+  <div class="phone-wrapper" data-screen="6" data-tags="ema">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span class="time">2:16</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 18L6 15"/><path d="M10 18L10 11"/><path d="M14 18L14 7"/><path d="M18 18L18 3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="6" width="14" height="12" rx="2"/><path d="M21 10v4"/></svg>
+          </div>
+        </div>
+
+        <div class="app-header">
+          <div class="back-btn" onclick="scrollToScreen(5)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </div>
+          <div class="app-title">Quick Check-In</div>
+        </div>
+
+        <div class="screen-content" style="padding-top:16px;">
+          <div class="progress-dots">
+            <div class="dot done"></div>
+            <div class="dot done"></div>
+            <div class="dot active"></div>
+            <div class="dot"></div>
+          </div>
+
+          <div style="padding-top:40px;">
+            <div class="question-text">Did you feel a strong urge before the leak?</div>
+            <div class="helper-text">A sudden, strong need to go to the bathroom right before it happened.</div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:16px; margin-top:32px;">
+            <button class="action-btn btn-primary" style="padding:24px; font-size:22px;" onclick="scrollToScreen(7)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>
+              Yes
+            </button>
+            <button class="action-btn btn-outline" style="padding:24px; font-size:22px;" onclick="scrollToScreen(7)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 18L18 6M6 6l12 12"/></svg>
+              No
+            </button>
+            <button class="action-btn btn-warm" style="padding:24px; font-size:22px;" onclick="scrollToScreen(7)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v0"/></svg>
+              Not Sure
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label"><span class="screen-number">6</span> EMA — Question 3</div>
+  </div>
+
+  <!-- ==================== SCREEN 7: EMA COMPLETE ==================== -->
+  <div class="phone-wrapper" data-screen="7" data-tags="ema">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span class="time">2:17</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 18L6 15"/><path d="M10 18L10 11"/><path d="M14 18L14 7"/><path d="M18 18L18 3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="6" width="14" height="12" rx="2"/><path d="M21 10v4"/></svg>
+          </div>
+        </div>
+
+        <div style="padding: 80px 24px 0; text-align:center;">
+          <div class="progress-dots" style="margin-bottom:40px;">
+            <div class="dot done"></div>
+            <div class="dot done"></div>
+            <div class="dot done"></div>
+            <div class="dot done"></div>
+          </div>
+
+          <div class="check-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>
+          </div>
+
+          <div style="font-size:28px; font-weight:800; color:var(--bark); margin-bottom:12px;">Thank You!</div>
+          <div style="font-size:20px; color:var(--stone); line-height:1.5; margin-bottom:8px;">Your answer has been saved.</div>
+
+          <div style="margin:32px auto; max-width:260px;">
+            <div class="big-card" style="background:var(--sun); border-color:var(--sun-deep); text-align:center;">
+              <div style="font-size:36px; margin-bottom:8px;">🌟</div>
+              <div style="font-size:18px; font-weight:700; color:var(--bark);">You're doing great!</div>
+              <div style="font-size:32px; font-weight:800; color:var(--coral); margin:8px 0;">12</div>
+              <div style="font-size:16px; font-weight:600; color:var(--stone);">surveys completed this week</div>
+            </div>
+          </div>
+
+          <div style="margin-top:40px;">
+            <button class="action-btn btn-primary" style="font-size:22px; padding:24px;" onclick="scrollToScreen(1)">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1"/></svg>
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label"><span class="screen-number">7</span> EMA — Complete</div>
+  </div>
+
+  <!-- ==================== SCREEN 8: MY DIARY ==================== -->
+  <div class="phone-wrapper" data-screen="8" data-tags="diary">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span class="time">9:43</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 18L6 15"/><path d="M10 18L10 11"/><path d="M14 18L14 7"/><path d="M18 18L18 3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="6" width="14" height="12" rx="2"/><path d="M21 10v4"/></svg>
+          </div>
+        </div>
+
+        <div class="app-header">
+          <div class="back-btn" onclick="scrollToScreen(1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </div>
+          <div class="app-title">My Diary</div>
+        </div>
+
+        <div class="screen-content" style="padding-top:12px;">
+          <div class="day-toggle">
+            <button class="day-toggle-btn active">Today</button>
+            <button class="day-toggle-btn">Yesterday</button>
+          </div>
+
+          <!-- Summary -->
+          <div class="big-card" style="margin-bottom:20px;">
+            <div class="stat-row">
+              <div class="stat-card" style="background:var(--sky);">
+                <div class="stat-icon">💧</div>
+                <div class="stat-val">960<span style="font-size:16px;font-weight:600;"> mL</span></div>
+                <div class="stat-label">Intake</div>
+              </div>
+              <div class="stat-card" style="background:var(--meadow);">
+                <div class="stat-icon">🚽</div>
+                <div class="stat-val">3</div>
+                <div class="stat-label">Voids</div>
+              </div>
+              <div class="stat-card" style="background:var(--rose);">
+                <div class="stat-icon">💦</div>
+                <div class="stat-val">1</div>
+                <div class="stat-label">Leaks</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="section-label">Timeline</div>
+          <div class="big-card" style="padding:12px 16px;">
+            <div class="diary-entry">
+              <div class="diary-time">7:00a</div>
+              <div class="diary-icon intake">💧</div>
+              <div class="diary-detail">
+                <div class="what">Water — Medium</div>
+                <div class="info">~240 mL</div>
+              </div>
+            </div>
+            <div class="diary-entry">
+              <div class="diary-time">7:45a</div>
+              <div class="diary-icon void">🚽</div>
+              <div class="diary-detail">
+                <div class="what">Bathroom Visit</div>
+                <div class="info">Measured ~180 mL</div>
+              </div>
+            </div>
+            <div class="diary-entry">
+              <div class="diary-time">8:30a</div>
+              <div class="diary-icon intake">☕</div>
+              <div class="diary-detail">
+                <div class="what">Coffee — Small</div>
+                <div class="info">~120 mL</div>
+              </div>
+            </div>
+            <div class="diary-entry">
+              <div class="diary-time">9:15a</div>
+              <div class="diary-icon void">🚽</div>
+              <div class="diary-detail">
+                <div class="what">Bathroom Visit</div>
+                <div class="info">Measured ~150 mL</div>
+              </div>
+            </div>
+            <div class="diary-entry">
+              <div class="diary-time">10:20a</div>
+              <div class="diary-icon intake">💧</div>
+              <div class="diary-detail">
+                <div class="what">Water — Large</div>
+                <div class="info">~350 mL</div>
+              </div>
+            </div>
+            <div class="diary-entry">
+              <div class="diary-time">11:00a</div>
+              <div class="diary-icon void">🚽</div>
+              <div class="diary-detail">
+                <div class="what">Bathroom Visit</div>
+                <div class="info">Measured ~200 mL</div>
+              </div>
+            </div>
+            <div class="diary-entry">
+              <div class="diary-time">12:30p</div>
+              <div class="diary-icon intake">🍵</div>
+              <div class="diary-detail">
+                <div class="what">Tea — Medium</div>
+                <div class="info">~240 mL</div>
+              </div>
+            </div>
+            <div class="diary-entry">
+              <div class="diary-time">2:15p</div>
+              <div class="diary-icon leak">💦</div>
+              <div class="diary-detail">
+                <div class="what">Leak Detected</div>
+                <div class="info">~50 mL — while walking</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label"><span class="screen-number">8</span> My Diary</div>
+  </div>
+
+  <!-- ==================== SCREEN 9: SENSOR STATUS ==================== -->
+  <div class="phone-wrapper" data-screen="9" data-tags="sensor">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span class="time">9:44</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 18L6 15"/><path d="M10 18L10 11"/><path d="M14 18L14 7"/><path d="M18 18L18 3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="6" width="14" height="12" rx="2"/><path d="M21 10v4"/></svg>
+          </div>
+        </div>
+
+        <div class="app-header">
+          <div class="back-btn" onclick="scrollToScreen(1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </div>
+          <div class="app-title">Sensor</div>
+        </div>
+
+        <div class="screen-content" style="padding-top:24px; text-align:center;">
+          <div class="sensor-visual connected">
+            <div class="pulse"></div>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.8" stroke-linecap="round">
+              <rect x="6" y="3" width="12" height="18" rx="3"/>
+              <path d="M9 7h6M9 11h6M9 15h6"/>
+              <circle cx="12" cy="19" r="0.5" fill="var(--sage)"/>
+            </svg>
+          </div>
+
+          <div style="font-size:24px; font-weight:800; color:var(--sage); margin-bottom:4px;">Connected</div>
+          <div style="font-size:16px; color:var(--pebble); margin-bottom:32px;">Your sensor is working properly.</div>
+
+          <div class="big-card" style="text-align:left; margin-bottom:20px;">
+            <div style="font-size:17px; font-weight:700; color:var(--bark); margin-bottom:12px;">Sensor Details</div>
+            <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #EDE7E0;">
+              <span style="font-size:16px; color:var(--pebble);">Status</span>
+              <span style="font-size:16px; font-weight:700; color:var(--sage);">Active</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #EDE7E0;">
+              <span style="font-size:16px; color:var(--pebble);">Last Reading</span>
+              <span style="font-size:16px; font-weight:700; color:var(--bark);">2 min ago</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; padding:8px 0;">
+              <span style="font-size:16px; color:var(--pebble);">Pad Type</span>
+              <span style="font-size:16px; font-weight:700; color:var(--bark);">Auto-detected</span>
+            </div>
+          </div>
+
+          <div class="big-card" style="text-align:left; margin-bottom:24px; background:var(--sky); border-color:var(--sky-deep);">
+            <div style="font-size:17px; font-weight:700; color:var(--bark); margin-bottom:8px;">📋 How to Attach Your Sensor</div>
+            <ol style="font-size:16px; color:var(--stone); line-height:1.8; padding-left:20px;">
+              <li>Peel off the backing</li>
+              <li>Stick it on your pad</li>
+              <li>Press firmly for 5 seconds</li>
+              <li>That's it — it works on its own!</li>
+            </ol>
+          </div>
+
+          <button class="action-btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            Check Sensor
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label"><span class="screen-number">9</span> Sensor Status</div>
+  </div>
+
+  <!-- ==================== SCREEN 10: SETTINGS ==================== -->
+  <div class="phone-wrapper" data-screen="10" data-tags="settings">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <span class="time">9:45</span>
+          <div class="status-icons">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 18L6 15"/><path d="M10 18L10 11"/><path d="M14 18L14 7"/><path d="M18 18L18 3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="6" width="14" height="12" rx="2"/><path d="M21 10v4"/></svg>
+          </div>
+        </div>
+
+        <div class="app-header">
+          <div class="back-btn" onclick="scrollToScreen(1)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </div>
+          <div class="app-title">Settings</div>
+        </div>
+
+        <div class="screen-content" style="padding-top:16px;">
+          <!-- Profile -->
+          <div style="text-align:center; margin-bottom:24px;">
+            <div class="profile-avatar">👤</div>
+            <div style="font-size:22px; font-weight:800; color:var(--bark);">Margaret Johnson</div>
+            <div style="font-size:15px; color:var(--pebble);">Study Participant</div>
+          </div>
+
+          <!-- Settings list -->
+          <div class="big-card" style="margin-bottom:16px;">
+            <div class="toggle-row">
+              <div>
+                <div class="toggle-label">Notification Sound</div>
+                <div class="toggle-sublabel">Play sound for leak alerts</div>
+              </div>
+              <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+            </div>
+            <div class="toggle-row">
+              <div>
+                <div class="toggle-label">Vibration</div>
+                <div class="toggle-sublabel">Vibrate for alerts</div>
+              </div>
+              <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+            </div>
+          </div>
+
+          <!-- Text size -->
+          <div class="big-card" style="margin-bottom:16px;">
+            <div style="font-size:17px; font-weight:700; color:var(--bark); margin-bottom:14px;">Text Size</div>
+            <div class="text-size-row">
+              <div class="text-size-btn sz-a">A</div>
+              <div class="text-size-btn sz-a-plus selected">A+</div>
+              <div class="text-size-btn sz-a-plusplus">A++</div>
+            </div>
+          </div>
+
+          <!-- Emergency contact -->
+          <div class="section-label">Emergency Contact</div>
+          <div class="contact-card" style="margin-bottom:20px;">
+            <div class="contact-avatar">👩</div>
+            <div>
+              <div class="contact-name">Sarah Johnson</div>
+              <div class="contact-role">Daughter — (205) 555-0123</div>
+            </div>
+          </div>
+
+          <!-- Call for help -->
+          <button class="emergency-btn">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            Call for Help
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="screen-label"><span class="screen-number">10</span> Settings</div>
+  </div>
+
+</div>
+
+<script>
+  // Navigate to a screen by number
+  function scrollToScreen(num) {
+    const wrapper = document.querySelector(`[data-screen="${num}"]`);
+    if (!wrapper) return;
+
+    // Remove all highlights
+    document.querySelectorAll('.phone-wrapper').forEach(w => {
+      w.classList.remove('highlighted', 'dimmed');
+    });
+
+    // Highlight target
+    wrapper.classList.add('highlighted');
+
+    // Smooth scroll
+    wrapper.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+
+    // Flash effect
+    const frame = wrapper.querySelector('.phone-frame');
+    frame.style.boxShadow = '0 0 0 4px var(--ocean), 0 20px 60px rgba(44,24,16,0.15)';
+    setTimeout(() => {
+      frame.style.boxShadow = '';
+      wrapper.classList.remove('highlighted');
+    }, 1500);
+  }
+
+  // Filter screens by tag
+  function filterScreens(tag) {
+    const tabs = document.querySelectorAll('.nav-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+
+    document.querySelectorAll('.phone-wrapper').forEach(w => {
+      const tags = w.getAttribute('data-tags');
+      if (tags && tags.includes(tag)) {
+        w.style.display = '';
+        w.classList.remove('dimmed');
+      } else {
+        w.style.display = 'none';
+      }
+    });
+  }
+
+  function showAll() {
+    const tabs = document.querySelectorAll('.nav-tab');
+    tabs.forEach(t => t.classList.remove('active'));
+    tabs[0].classList.add('active');
+
+    document.querySelectorAll('.phone-wrapper').forEach(w => {
+      w.style.display = '';
+      w.classList.remove('dimmed');
+    });
+  }
+
+  // Make icon-cards, choice-btns, size-cards interactive
+  document.addEventListener('click', (e) => {
+    const iconCard = e.target.closest('.icon-card');
+    if (iconCard) {
+      const grid = iconCard.closest('.icon-grid');
+      if (grid) {
+        grid.querySelectorAll('.icon-card').forEach(c => c.classList.remove('selected'));
+        iconCard.classList.add('selected');
+      }
+    }
+
+    const sizeCard = e.target.closest('.size-card');
+    if (sizeCard) {
+      const row = sizeCard.closest('.size-row');
+      if (row) {
+        row.querySelectorAll('.size-card').forEach(c => c.classList.remove('selected'));
+        sizeCard.classList.add('selected');
+      }
+    }
+
+    const choiceBtn = e.target.closest('.choice-btn');
+    if (choiceBtn) {
+      const grid = choiceBtn.closest('.choice-grid');
+      if (grid) {
+        grid.querySelectorAll('.choice-btn').forEach(c => c.classList.remove('selected'));
+        choiceBtn.classList.add('selected');
+      }
+    }
+
+    const textSizeBtn = e.target.closest('.text-size-btn');
+    if (textSizeBtn) {
+      const row = textSizeBtn.closest('.text-size-row');
+      if (row) {
+        row.querySelectorAll('.text-size-btn').forEach(c => c.classList.remove('selected'));
+        textSizeBtn.classList.add('selected');
+      }
+    }
+
+    const dayToggle = e.target.closest('.day-toggle-btn');
+    if (dayToggle) {
+      const row = dayToggle.closest('.day-toggle');
+      if (row) {
+        row.querySelectorAll('.day-toggle-btn').forEach(c => c.classList.remove('active'));
+        dayToggle.classList.add('active');
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
